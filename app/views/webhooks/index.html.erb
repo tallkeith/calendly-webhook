@@ -1,22 +1,24 @@
-
+<h2>Events</h2>
+  <%= column_chart @day_of_week, stacked: true, xtitle: "Day", ytitle: "Number of Events"%>
 
 <% @hooks.each do |hook| %>
-  <h3><%= hook.data['payload']['event_type']['name'] %> with <%= hook.data['payload']['invitee']['name'] %></h3>
-  <ul>
-    <li><b>Start:</b> <%= hook.data['payload']['event']['start_time_pretty'] %></li>
-    <li><b>End:</b> <%= hook.data['payload']['event']['end_time_pretty'] %></li>
-    <li><b>Invitee Email:</b> <%= hook.data['payload']['invitee']['email'] %></li>
-    <% if hook.canceled %>
+  <% unless hook.canceled %>
+    <h3><%= hook.event_name %> with <%= hook.invitee_name %></h3>
+    <ul>
+      <li><b>Start:</b> <%= hook.start_time.strftime("%a, %b %-d, %Y %l:%M%P") %></li>
+      <li><b>End:</b> <%= hook.end_time.strftime("%a, %b %-d, %Y %l:%M%P") %></li>
+      <li><b>Invitee Email:</b> <%= hook.invitee_email %></li>
+    </ul>
+    <% else hook.canceled %>
+    <h2 style="color:red">CANCELED</h2>
+    <h3><%= hook.event_name %> with <%= hook.invitee_name %></h3>
+    <ul>
       <li><b>Canceled By:</b> <%= hook.canceler %></li>
       <li><b>Cancel Reason:</b> <%= hook.cancel_reason %></li>
-      <li><b>Canceled At:</b> <%= hook.canceled_at %></li>
-    <% end %>      
-  </ul>
-
+      <li><b>Canceled At:</b> <%= hook.canceled_at.to_datetime.strftime("%a, %b %-d, %Y %l:%M%P") %></li>
+    </ul>
+  <% end %>
   <br>
-  ________________________________________________
+  <hr>
   <br>
 <% end %>
-
-<h2>Events Created</h2>
-  <%= column_chart @day_of_week, stacked: true, xtitle: "Day", ytitle: "Number of Events"%>

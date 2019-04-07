@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190407183801) do
+ActiveRecord::Schema.define(version: 20190407202941) do
 
   create_table "webhooks", force: :cascade do |t|
     t.string "data"
@@ -18,14 +18,14 @@ ActiveRecord::Schema.define(version: 20190407183801) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "canceled"
-    t.string "start_time"
-    t.string "end_time"
     t.string "canceler"
     t.string "cancel_reason"
     t.string "canceled_at"
     t.string "invitee_name"
     t.string "invitee_email"
     t.string "event_name"
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
 
 end
