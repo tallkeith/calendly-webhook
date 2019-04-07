@@ -1,0 +1,22 @@
+
+
+<% @hooks.each do |hook| %>
+  <h3><%= hook.data['payload']['event_type']['name'] %> with <%= hook.data['payload']['invitee']['name'] %></h3>
+  <ul>
+    <li><b>Start:</b> <%= hook.data['payload']['event']['start_time_pretty'] %></li>
+    <li><b>End:</b> <%= hook.data['payload']['event']['end_time_pretty'] %></li>
+    <li><b>Invitee Email:</b> <%= hook.data['payload']['invitee']['email'] %></li>
+    <% if hook.canceled %>
+      <li><b>Canceled By:</b> <%= hook.canceler %></li>
+      <li><b>Cancel Reason:</b> <%= hook.cancel_reason %></li>
+      <li><b>Canceled At:</b> <%= hook.canceled_at %></li>
+    <% end %>      
+  </ul>
+
+  <br>
+  ________________________________________________
+  <br>
+<% end %>
+
+<h2>Events Created</h2>
+  <%= column_chart @day_of_week, stacked: true, xtitle: "Day", ytitle: "Number of Events"%>
